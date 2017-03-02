@@ -3,33 +3,26 @@ package com.timebeeper;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.*;
-import java.util.TimerTask;
-
 import javax.swing.*;
 
 public class UI_Setting {
-	int minutes;
 	int seconds;
 	int seconds2;
 	int sets;
 	int rest;
-	public class fefew{
-		
-	}
-	
-	public void setTime(int mm, int ss, int st, int rt){
-		this.minutes = mm;
+
+	public void setTime(int ss, int st, int rt){
+
 		this.seconds = ss;
 		this.seconds2 = ss;
 		this.sets = st;
 		this.rest = rt;
 	}
-	
+	// labels and sounds needed to be added , take the conrols to time class
 	public void ticking(){
 
 		if (seconds <=0){
-			if(sets <=0 && minutes <=0)
+			if(sets <=0)
 				System.out.println("finished");
 			else if (sets > 0){
 				this.seconds = seconds2;
@@ -38,11 +31,11 @@ public class UI_Setting {
 		}
 		else this.seconds -= 1;
 	}
-	
+	Timer t;
 	UI_Setting(){
-		
+
 	JFrame frame= new JFrame("Working Out Time Beeper");
-	JPanel panel = new JPanel(new FlowLayout());
+	JPanel panel = new JPanel();
 	JButton startButton = new JButton("Start");
 	JButton stopButton = new JButton("Stop");
 	JButton resumeButton = new JButton("Resume");
@@ -54,18 +47,25 @@ public class UI_Setting {
 	
 	
 	JLabel label = new JLabel();
-//	SimpleDateFormat adf = new SimpleDateFormat("HH:mm:ss");
-//	label.setText(adf.format(new java.util.Date()));
-	String str = String.format("%02d : %02d", minutes, seconds);
+	JLabel label1 = new JLabel();
+	JLabel label2 = new JLabel();
+	JLabel label3 = new JLabel();
+	
+	Font basicFont = new Font("Apple Casual",Font.BOLD,120);
+	label.setFont(basicFont);
+
+	String str = String.format("%02d" , seconds);
 	label.setText(str);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setContentPane(panel);
 
 	panel.add(label);
 	panel.add(startButton);
-//	panel.add(timeButton);
+	panel.add(label1);
 	panel.add(setSeconds);
+	panel.add(label2);
 	panel.add(setSets);
+	panel.add(label3);
 	panel.add(setRest);
 	
 	frame.setPreferredSize(new Dimension(350, 250));
@@ -74,57 +74,45 @@ public class UI_Setting {
 	frame.pack();
 	frame.setVisible(true);
 
-	Timer t = new Timer(1000,new ActionListener() {
+	t = new Timer(1000,new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(sets<=0 &&seconds<=0){
 				e = null;
 				System.out.println("working");
+				t.stop();
+				stopButton.setVisible(false);
+				startButton.setVisible(true);
+				label1.setVisible(true);
+				setSeconds.setVisible(true);
+				label2.setVisible(true);
+				setSets.setVisible(true);
+				label3.setVisible(true);
+				setRest.setVisible(true);
 			}
 			else{
 			ticking();
 			System.out.println("tick-tok");
-			String str1 = String.format("%02d : %02d", minutes, seconds);
+			String str1 = String.format("%02d",  seconds);
 			label.setText(str1);
 			System.out.println(seconds);}
 			
 		}
-	});
 
+
+	});
 	
-			
-			
-//	Timer t = new Timer(1000,new ActionListener() {
-//		public void actionPerformed(ActionEvent e){
-//		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-//		label.setText(sdf.format(new java.util.Date()));
-//}	
-//});	
-	
-	
-	
-	
-	//spinner time setting button disabled for now :)
-//	timeButton.addActionListener(new ActionListener() {
-//		
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			// TODO Auto-generated method stub
-//			setTime(0, (int)spinner.getValue());
-//			String str1 = String.format("%02d : %02d",minutes, seconds);
-//			label.setText(str1);
-//			
-//		}
-//	});
+
 	startButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
-			setTime(0, (int)setSeconds.getValue(), (int)setSets.getValue(), (int)setRest.getValue());
-			String str1 = String.format("%02d : %02d",minutes, seconds);
+			setTime( (int)setSeconds.getValue(), (int)setSets.getValue(), (int)setRest.getValue());
+			String str1 = String.format("%02d", seconds);
 			label.setText(str1);
 			t.start();
 			panel.add(stopButton);
+			stopButton.setVisible(true);
 			startButton.setVisible(false);
 			panel.add(resumeButton);
 			resumeButton.setVisible(false);
@@ -162,8 +150,8 @@ public class UI_Setting {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			setTime(0, 0, 0, 0);
-			String str1 = String.format("%02d : %02d",minutes, seconds);
+			setTime( 0, 0, 0);
+			String str1 = String.format("%02d", seconds);
 			label.setText(str1);
 			setSeconds.setVisible(true);
 			setSets.setVisible(true);
@@ -171,10 +159,7 @@ public class UI_Setting {
 		}
 	});
 
-	
-
 	Container contentPane = frame.getContentPane();
-	contentPane.setLayout(new FlowLayout());
+	contentPane.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	}
-
 }
