@@ -48,8 +48,11 @@ public class UI_Setting {
 	
 	JLabel label = new JLabel();
 	JLabel label1 = new JLabel();
+	label1.setText("Seconds");
 	JLabel label2 = new JLabel();
+	label2.setText("Sets");
 	JLabel label3 = new JLabel();
+	label3.setText("Rests");
 	
 	Font basicFont = new Font("Apple Casual",Font.BOLD,120);
 	label.setFont(basicFont);
@@ -119,6 +122,9 @@ public class UI_Setting {
 			setSeconds.setVisible(false);
 			setSets.setVisible(false);
 			setRest.setVisible(false);
+			label1.setVisible(false);
+			label2.setVisible(false);
+			label3.setVisible(false);
 			panel.add(resetButton);
 			resetButton.setVisible(false);
 		}
@@ -156,6 +162,12 @@ public class UI_Setting {
 			setSeconds.setVisible(true);
 			setSets.setVisible(true);
 			setRest.setVisible(true);
+			label1.setVisible(true);
+			label2.setVisible(true);
+			label3.setVisible(true);
+			resetButton.setVisible(false);
+			resumeButton.setVisible(false);
+			startButton.setVisible(true);
 		}
 	});
 
