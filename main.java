@@ -3,11 +3,11 @@ package com.timebeeper;
 public class main {
 	
 	public static void main(String[] args)   {
-			
-
-		UI_Setting ui = new UI_Setting();
-		System.out.println(new java.util.Date());
+		Time timebeeper = new Time();
+		timebeeper.timer_Init();
+		timebeeper.start();
+		timebeeper.stop();
+		timebeeper.resume();
+		timebeeper.reset();
 	}
-	
-
 }
