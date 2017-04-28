@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class Time {
-	UI_Setting ui = new UI_Setting();
-	Timer t;
+	private UI_Setting ui = new UI_Setting();
+	private Timer t;
 	private int seconds;
 	private int sets;
 	private int rest;
@@ -25,17 +25,16 @@ public class Time {
 			this.seconds -= 1;
 			setUI_Time();
 			ui.setLabelTime();
-			System.out.println("doing the job");
 	}
 	public void timer_Init(){
 		ui.basicFrameAndLabel();
 		t = new Timer(1000,new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(seconds<=0 && sets<=0){
-					System.out.println("Finished Well Done buddy!");
-					t.stop();
+					System.out.println("Finished Well Done Mate!");
 					ui.timerInit();
 					ui.setLabelTime();
+					t.stop();
 				}
 				else if(seconds <= 0){
 						if(rest <= 0){
